@@ -24,6 +24,8 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+//mock checking if user is already logged in
+//later to be replaced by authentication api
   Future<bool> _mockcheckForSession() async {
     await Future.delayed(Duration(milliseconds: 5000), () {});
     return false;
