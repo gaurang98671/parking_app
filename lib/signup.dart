@@ -1,7 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'SplashScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'home.dart';
 import 'login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -9,6 +12,32 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  String _user_name, _password, _confirm_password;
+  String _uid;
+
+     void signUp() async{
+
+      try{
+
+       FirebaseAuth auth=FirebaseAuth.instance;
+       FirebaseUser user= auth.createUserWithEmailAndPassword(
+           email: _user_name,
+           password: _password
+       ).whenComplete(()
+       {
+         Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+       }
+       ) as FirebaseUser;
+
+
+      }
+      catch(e)
+    {
+      print(e.message);
+    }
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                     padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                     child: TextField(
+                      onChanged: (username)=>{_user_name=username},
                       style: TextStyle(
                         color: Color(0xff020061),
                       ),
@@ -68,6 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                   child: TextField(
+                    onChanged: (pass)=>{_password=pass},
                     style: TextStyle(
                       color: Color(0xff020061),
                     ),
@@ -95,6 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                   child: TextField(
+                    onChanged: (con_pass)=>{_confirm_password=con_pass},
                     style: TextStyle(
                       color: Color(0xff020061),
                     ),
@@ -126,10 +158,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute<Null>(
-                          builder: (BuildContext context) {
-                        return HomeScreen();
-                      }));
+                      signUp();
+
                     },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(60, 10, 60, 10),
@@ -150,7 +180,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Navigator.of(context).push(MaterialPageRoute<Null>(
                           builder: (BuildContext context) {
                         return LoginPage();
-                      }));
+                      }
+                      )
+                      );
                     },
                     child: Text(
                       'Already have an account? Sign in',
@@ -163,6 +195,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ],
             ),
           ],
-        )));
+        )
+        )
+    );
+  }
+
+  void saveUserId(String uid) async{
+    SharedPreferences prefs= await SharedPreferences.getInstance();
+    prefs.setString(uid, uid);
   }
 }

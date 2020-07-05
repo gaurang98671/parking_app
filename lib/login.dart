@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'SplashScreen.dart';
 import 'home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'signup.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,6 +10,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String user_name, password;
+  void login_user()
+  {
+    FirebaseAuth.instance.signInWithEmailAndPassword(email: user_name, password: password);
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Stack(
           children: <Widget>[
             Image.asset(
-              'assets/images/background.jpg',
+              'assets/images/background_1.gif',
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.cover,
@@ -26,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
-                  height: 170,
+                  height: 130,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
@@ -34,6 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(
                         fontSize: 60,
                         fontFamily: 'Righteous',
+                        color: Colors.black87
                       )),
                 ),
                 SizedBox(
@@ -42,6 +50,9 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                     padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                     child: TextField(
+                      onChanged: (userName){
+                        user_name=userName;
+                      },
                       style: TextStyle(
                         color: Color(0xff020061),
                       ),
@@ -50,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                           // fillColor: Colors.blueAccent,
                           labelText: 'username',
                           labelStyle: TextStyle(
-                            color: Color(0xffB65133),
+                            color: Colors.white,
                           ),
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xff020061)),
@@ -68,6 +79,9 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                   child: TextField(
+                    onChanged: (pass){
+                      password=pass;
+                    },
                     style: TextStyle(
                       color: Color(0xff020061),
                     ),
@@ -83,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       labelText: 'password',
                       labelStyle: TextStyle(
-                        color: Color(0xffB65133),
+                        color: Colors.white,
                       ),
                     ),
                     textAlign: TextAlign.left,
@@ -99,10 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute<Null>(
-                          builder: (BuildContext context) {
-                        return HomeScreen();
-                      }));
+                      login_user();
                     },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(60, 10, 60, 10),
@@ -127,7 +138,9 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: Text(
                       'Forgot Password?',
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 15,
+                      color: Colors.white
+                      ),
                     ),
                   ),
                 ),
@@ -145,6 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       'Create new account',
                       style: TextStyle(
+                        color: Colors.white,
                         fontSize: 17,
                       ),
                     ),

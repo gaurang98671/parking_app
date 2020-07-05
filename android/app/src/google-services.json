@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "31945724970",
+    "firebase_url": "https://summer-project-f7b40.firebaseio.com",
+    "project_id": "summer-project-f7b40",
+    "storage_bucket": "summer-project-f7b40.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31945724970:android:4e009bf5128a7012f3df53",
+        "android_client_info": {
+          "package_name": "com.example.parkingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "31945724970-nv6oc6m92vsuooccsd2gu49a3vcjmfs2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1jUiGWh5k6cm7st80nQoerORtBBHCoPI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "31945724970-nv6oc6m92vsuooccsd2gu49a3vcjmfs2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
