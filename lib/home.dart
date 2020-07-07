@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -34,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
  Widget _loadMap()
   {
     return StreamBuilder(
+
       stream: Firestore.instance.collection('Parkings').snapshots(),
       builder: (context, snapshot)
       {
@@ -43,23 +45,25 @@ class _HomeScreenState extends State<HomeScreen> {
         }
         else
         {
+          _markers.clear();
           for(int i=0; i< snapshot.data.documents.length; i++)
           {
             _markers.add(
               new Marker(
+                infoWindow: InfoWindow(title: snapshot.data.documents[i]['Aquired'].toString(), snippet: 'Spaces Aquired' ),
                 visible: true,
                 markerId: MarkerId(i.toString()),
                 position: new LatLng(
                   snapshot.data.documents[i]['location'].latitude,
                   snapshot.data.documents[i]['location'].longitude),
-                onTap: (){print(snapshot.data.documents[i]['Address']);}
+                onTap: (){print(snapshot.data.documents[i]['Aquired'].toString());}
               )
             );
-            String a=snapshot.data.documents[i]['Address'];
-            print('$a');
+
           }
+          print(_markers.length);
         }
-        return  GoogleMap(
+        return new GoogleMap(
           initialCameraPosition: CameraPosition(
               target: LatLng(19.204761,73.006379),
               zoom: 13
