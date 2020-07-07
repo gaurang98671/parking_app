@@ -4,6 +4,7 @@ import 'SplashScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'home.dart';
 import 'login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -12,29 +13,27 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  String _user_name, _password, _confirm_password;
-  String _uid;
+  String _user_name,_email, _password, _confirm_password;
+  String userId;
 
-     void signUp() async{
+     void signUp() async {
 
-      try{
+       try {
 
-       FirebaseAuth auth=FirebaseAuth.instance;
-       FirebaseUser user= auth.createUserWithEmailAndPassword(
-           email: _user_name,
-           password: _password
-       ).whenComplete(()
-       {
-         Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+         FirebaseUser user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password)).user;
+
+        userId=user.uid;
+
+
+       Navigator.push(context, MaterialPageRoute(
+       builder: (context)=>HomeScreen(user: user,)
+       ));
        }
-       ) as FirebaseUser;
+       catch (e) {
+       print(e.message);
+       }
 
 
-      }
-      catch(e)
-    {
-      print(e.message);
-    }
 
 
   }
@@ -55,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
-                  height: 120,
+                  height: 50,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
@@ -78,7 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       decoration: InputDecoration(
                           // filled: true,
                           // fillColor: Colors.blueAccent,
-                          labelText: 'username',
+                          labelText: 'name',
                           labelStyle: TextStyle(
                             color: Color(0xffB65133),
                           ),
@@ -95,6 +94,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   height: 20,
                 ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                  child: TextField(
+                    onChanged: (email)=>{_email=email},
+                    style: TextStyle(
+                      color: Color(0xff020061),
+                    ),
+
+                    decoration: InputDecoration(
+                      // filled: true,
+                      // fillColor: Colors.blueAccent,
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xff020061)),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xff020061)),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      labelText: 'email',
+                      labelStyle: TextStyle(
+                        color: Color(0xffB65133),
+                      ),
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                SizedBox( height: 20,),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                   child: TextField(
@@ -157,10 +182,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     splashColor: Color(0xff020061),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    onPressed: () {
+                    onPressed: (){
                       signUp();
-
-                    },
+                      },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(60, 10, 60, 10),
                       child: Text(
@@ -200,8 +224,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void saveUserId(String uid) async{
-    SharedPreferences prefs= await SharedPreferences.getInstance();
+  void saveUserId(String uid) {
+    SharedPreferences prefs= SharedPreferences.getInstance() as SharedPreferences;
     prefs.setString(uid, uid);
   }
+
+  void navigate() {
+       Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+  }
+
+  Future<FirebaseUser> create_user(String email, String password) async {
+    FirebaseUser user= await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password) as FirebaseUser;
+    return user;
+  }
+
+
 }

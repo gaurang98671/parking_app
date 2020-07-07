@@ -9,15 +9,15 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b33ff43e-099e-4222-bb61-33dc0587eda9" name="Default Changelist" comment="images added &#10;main and signup page added&#10;pubsec.yaml updates&#10;gradle jar updated">
-      <change afterPath="$PROJECT_DIR$/android/app/src/google-services.json" afterDir="false" />
+    <list default="true" id="b33ff43e-099e-4222-bb61-33dc0587eda9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SplashScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SplashScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/signup.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/signup.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
@@ -84,7 +84,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593955359297</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="signin completed&#10;login completed&#10;sharred pref remaning">
+      <created>1593982353685</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1593982353686</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -92,7 +99,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -100,6 +109,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="images added &#10;main and signup page added&#10;pubsec.yaml updates&#10;gradle jar updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="images added &#10;main and signup page added&#10;pubsec.yaml updates&#10;gradle jar updated" />
+    <MESSAGE value="signin completed&#10;login completed&#10;sharred pref remaning" />
+    <option name="LAST_COMMIT_MESSAGE" value="signin completed&#10;login completed&#10;sharred pref remaning" />
   </component>
 </project>

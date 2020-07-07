@@ -1,53 +1,73 @@
 import 'dart:async';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 class HomeScreen extends StatefulWidget {
+  final FirebaseUser user;
+
+  const HomeScreen({Key key, this.user}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String _name='gaurang';
-  @override
-  void initstate()
-  {
-    getuid().then(update_uid);
-  }
 
+  List<Marker> _markers=[];
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 120,
-          ),
-          Container(
-            child: Text(
-              _name,
-              style: TextStyle(
-                fontSize: 50,
-              ),
-            ),
-          )
-        ],
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.search),
       ),
+      body: Stack(
+        children: <Widget>[
+
+          _loadMap()
+          ],
+      )
     );
   }
 
-  Future<void> getuid() async{
-    SharedPreferences prefs= await SharedPreferences.getInstance();
-    String uid=prefs.get('uid');
-    return uid;
-  }
 
-
-
-  void update_uid(String uid)
+ Widget _loadMap()
   {
-    setState(() {
-      this._name=uid;
-    });
+    return StreamBuilder(
+      stream: Firestore.instance.collection('Parkings').snapshots(),
+      builder: (context, snapshot)
+      {
+        if(!snapshot.hasData)
+        {
+          return Text('Loading map');
+        }
+        else
+        {
+          for(int i=0; i< snapshot.data.documents.length; i++)
+          {
+            _markers.add(
+              new Marker(
+                visible: true,
+                markerId: MarkerId(i.toString()),
+                position: new LatLng(
+                  snapshot.data.documents[i]['location'].latitude,
+                  snapshot.data.documents[i]['location'].longitude),
+                onTap: (){print(snapshot.data.documents[i]['Address']);}
+              )
+            );
+            String a=snapshot.data.documents[i]['Address'];
+            print('$a');
+          }
+        }
+        return  GoogleMap(
+          initialCameraPosition: CameraPosition(
+              target: LatLng(19.204761,73.006379),
+              zoom: 13
+          ),
+          markers: _markers.toSet(),
+
+        );
+      },
+    );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shimmer/shimmer.dart';
 import 'home.dart';
 import 'login.dart';
@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     _mockcheckForSession().then((status) {
-      if (status) {
+      if (FirebaseAuth.instance.currentUser()!=null) {
         _navigateToHome();
       } else {
         _navigateToLogin();
@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
 //later to be replaced by authentication api
   Future<bool> _mockcheckForSession() async {
     await Future.delayed(Duration(milliseconds: 5000), () {});
-    return false;
+   return false;
   }
 
   void _navigateToHome() {
