@@ -57,6 +57,57 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: (){
 
                   print(snapshot.data.documents[i]['Aquired'].toString());
+                  showDialog(context: context, builder: (BuildContext contex){
+                    return Dialog(
+                      shape:  RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)
+                    ),
+                      child: Container(
+                        height: 180.0,
+                        width: 300.0,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
+                        child: StreamBuilder(
+                          stream: Firestore.instance.collection('Parkings').snapshots(),
+                          builder: (context, snap)
+                          {
+                            if(!snap.hasData)
+                              {
+                                return CircularProgressIndicator();
+                              }
+                            else
+                              {
+                                return Column(
+                                  children: <Widget>[
+                                    SizedBox(height: 10,),
+                                    CircleAvatar(backgroundImage: AssetImage(
+                                      'assets/images/vv.PNG'
+                                    ),
+                                    radius: 40,),
+                                    Text(snap.data.documents[i]['Address'].toString()),
+                                    Text("Aquired spots: "+snap.data.documents[i]['Aquired'].toString(),
+                                    style: TextStyle(fontSize: 15),
+                                    ),
+                                    RaisedButton(
+                                      child: Text(
+                                        'Book spot',
+                                        style: TextStyle(
+                                          color: Colors.white
+                                        ),
+                                      ),
+                                      color: Colors.purple,
+                                      onPressed: ()=>{},
+                                    )
+
+
+                                  ],
+                                );
+                              }
+                          },
+
+                        ),
+                      ),
+                    );
+                  });
                 }
               )
             );
@@ -75,16 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
           markers: _markers.toSet(),
 
         ),
-            Positioned(
-              bottom: 20.0,
-              child: Container(
-                height: 200,
-                width: MediaQuery.of(context).size.width,
-                child: Card(
-
-                ),
-              ),
-            )
+            
           ],
         );
       },
