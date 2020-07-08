@@ -14,16 +14,65 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   List<Marker> _markers=[];
   @override
 
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      drawer: Container(
+        width: 220,
+        child: new Drawer(
+          child: new ListView(
+            children: <Widget>[
 
+              ListTile(
+                leading: Icon(
+                  Icons.history,
+                ),
+                title: Text('History'),
+              ),
+
+              ListTile(
+                leading: Icon(
+                  Icons.add,
+                ),
+                title: Text('Rent parking'),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.info,
+                ),
+                title: Text('About'),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.exit_to_app,
+                  color: Colors.red,
+                ),
+                title: Text('Logout'),
+              )
+            ],
+          ),
+        ),
+      ),
       body: Stack(
-        children: <Widget>[
+        children: <Widget>
+          [
 
-          _loadMap()
+            _loadMap(),
+              Positioned(
+               left: 0,
+               top: 20,
+                child: IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () => scaffoldKey.currentState.openDrawer(),
+                  color: Colors.white,
+                  iconSize: 35,
+                )
+              )
           ],
       )
     );
@@ -48,15 +97,12 @@ class _HomeScreenState extends State<HomeScreen> {
           {
             _markers.add(
               new Marker(
-                infoWindow: InfoWindow(title: snapshot.data.documents[i]['Aquired'].toString(), snippet: 'Spaces Aquired' ),
                 visible: true,
                 markerId: MarkerId(i.toString()),
                 position: new LatLng(
                   snapshot.data.documents[i]['location'].latitude,
                   snapshot.data.documents[i]['location'].longitude),
                 onTap: (){
-
-                  print(snapshot.data.documents[i]['Aquired'].toString());
                   showDialog(context: context, builder: (BuildContext contex){
                     return Dialog(
                       shape:  RoundedRectangleBorder(
@@ -120,7 +166,6 @@ class _HomeScreenState extends State<HomeScreen> {
               zoom: 13
           ),
           markers: _markers.toSet(),
-
         ),
           ],
         );

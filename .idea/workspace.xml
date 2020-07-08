@@ -130,7 +130,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594220631525</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="commit before new pop up window">
+      <created>1594238310834</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1594238310834</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -154,6 +161,7 @@
     <MESSAGE value=".flutter-plugin&#10;.flutter-plugin-dependencies addded" />
     <MESSAGE value="Dialogue box added" />
     <MESSAGE value="splash screen problem fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="splash screen problem fixed" />
+    <MESSAGE value="commit before new pop up window" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit before new pop up window" />
   </component>
 </project>
