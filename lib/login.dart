@@ -11,11 +11,13 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String user_name, password;
-  void login_user()
-  {
-    FirebaseAuth.instance.signInWithEmailAndPassword(email: user_name, password: password);
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+  void login_user() {
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: user_name, password: password);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => HomeScreen()));
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Stack(
           children: <Widget>[
             Image.asset(
-              'assets/images/background_1.gif',
+              'assets/images/background.jpg',
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.cover,
@@ -39,10 +41,9 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
                   child: Text('Sign In',
                       style: TextStyle(
-                        fontSize: 60,
-                        fontFamily: 'Righteous',
-                        color: Colors.black87
-                      )),
+                          fontSize: 60,
+                          fontFamily: 'Righteous',
+                          color: Colors.black87)),
                 ),
                 SizedBox(
                   height: 30,
@@ -50,8 +51,8 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                     padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                     child: TextField(
-                      onChanged: (userName){
-                        user_name=userName;
+                      onChanged: (userName) {
+                        user_name = userName;
                       },
                       style: TextStyle(
                         color: Color(0xff020061),
@@ -79,8 +80,8 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                   child: TextField(
-                    onChanged: (pass){
-                      password=pass;
+                    onChanged: (pass) {
+                      password = pass;
                     },
                     style: TextStyle(
                       color: Color(0xff020061),
@@ -138,9 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: Text(
                       'Forgot Password?',
-                      style: TextStyle(fontSize: 15,
-                      color: Colors.white
-                      ),
+                      style: TextStyle(fontSize: 15, color: Colors.white),
                     ),
                   ),
                 ),
