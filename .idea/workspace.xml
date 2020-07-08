@@ -10,7 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b33ff43e-099e-4222-bb61-33dc0587eda9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -98,7 +97,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594149268328</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary=".flutter-plugin&#10;.flutter-plugin-dependencies addded">
+      <created>1594181862366</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1594181862366</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -119,6 +125,7 @@
     <MESSAGE value="signin completed&#10;login completed&#10;sharred pref remaning" />
     <MESSAGE value="maps shows markes from data base" />
     <MESSAGE value="maps updating in real time" />
-    <option name="LAST_COMMIT_MESSAGE" value="maps updating in real time" />
+    <MESSAGE value=".flutter-plugin&#10;.flutter-plugin-dependencies addded" />
+    <option name="LAST_COMMIT_MESSAGE" value=".flutter-plugin&#10;.flutter-plugin-dependencies addded" />
   </component>
 </project>
