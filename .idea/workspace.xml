@@ -11,7 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b33ff43e-099e-4222-bb61-33dc0587eda9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/SplashScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SplashScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -124,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594217772285</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="splash screen problem fixed">
+      <created>1594220631525</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1594220631525</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -147,6 +153,7 @@
     <MESSAGE value="maps updating in real time" />
     <MESSAGE value=".flutter-plugin&#10;.flutter-plugin-dependencies addded" />
     <MESSAGE value="Dialogue box added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dialogue box added" />
+    <MESSAGE value="splash screen problem fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="splash screen problem fixed" />
   </component>
 </project>

@@ -48,14 +48,15 @@ class _HomeScreenState extends State<HomeScreen> {
           {
             _markers.add(
               new Marker(
-                infoWindow: InfoWindow(title: snapshot.data.documents[i]['Aquired'].toString(), snippet: 'Spaces Aquired' ),
                 visible: true,
                 markerId: MarkerId(i.toString()),
                 position: new LatLng(
                   snapshot.data.documents[i]['location'].latitude,
                   snapshot.data.documents[i]['location'].longitude),
-                onTap: (){
 
+                //Pop up window shows up showing info of parking
+
+                onTap: (){
                   print(snapshot.data.documents[i]['Aquired'].toString());
                   showDialog(context: context, builder: (BuildContext contex){
                     return Dialog(
@@ -109,7 +110,6 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             );
           }
-          print(_markers.length);
         }
         return Stack(
           children: <Widget>[
@@ -120,7 +120,6 @@ class _HomeScreenState extends State<HomeScreen> {
               zoom: 13
           ),
           markers: _markers.toSet(),
-
         ),
           ],
         );
