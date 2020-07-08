@@ -19,9 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.search),
-      ),
+
       body: Stack(
         children: <Widget>[
 
@@ -56,22 +54,40 @@ class _HomeScreenState extends State<HomeScreen> {
                 position: new LatLng(
                   snapshot.data.documents[i]['location'].latitude,
                   snapshot.data.documents[i]['location'].longitude),
-                onTap: (){print(snapshot.data.documents[i]['Aquired'].toString());}
+                onTap: (){
+
+                  print(snapshot.data.documents[i]['Aquired'].toString());
+                }
               )
             );
 
           }
           print(_markers.length);
         }
-        return new GoogleMap(
+        return Stack(
+          children: <Widget>[
+        new GoogleMap(
+        mapType: MapType.hybrid,
           initialCameraPosition: CameraPosition(
               target: LatLng(19.204761,73.006379),
               zoom: 13
           ),
           markers: _markers.toSet(),
 
+        ),
+            Positioned(
+              bottom: 20.0,
+              child: Container(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                child: Pa,
+              ),
+            )
+          ],
         );
       },
     );
   }
+
+
 }

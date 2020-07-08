@@ -36,6 +36,7 @@
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -90,7 +91,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594134390769</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="maps updating in real time">
+      <created>1594149268328</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1594149268328</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -110,6 +118,7 @@
     <MESSAGE value="images added &#10;main and signup page added&#10;pubsec.yaml updates&#10;gradle jar updated" />
     <MESSAGE value="signin completed&#10;login completed&#10;sharred pref remaning" />
     <MESSAGE value="maps shows markes from data base" />
-    <option name="LAST_COMMIT_MESSAGE" value="maps shows markes from data base" />
+    <MESSAGE value="maps updating in real time" />
+    <option name="LAST_COMMIT_MESSAGE" value="maps updating in real time" />
   </component>
 </project>
