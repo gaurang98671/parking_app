@@ -10,10 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b33ff43e-099e-4222-bb61-33dc0587eda9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/images/vv.PNG" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/SplashScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SplashScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,6 +37,9 @@
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="configurable.group.build" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -115,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594181896221</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Dialogue box added">
+      <created>1594217772285</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1594217772285</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -137,6 +146,7 @@
     <MESSAGE value="maps shows markes from data base" />
     <MESSAGE value="maps updating in real time" />
     <MESSAGE value=".flutter-plugin&#10;.flutter-plugin-dependencies addded" />
-    <option name="LAST_COMMIT_MESSAGE" value=".flutter-plugin&#10;.flutter-plugin-dependencies addded" />
+    <MESSAGE value="Dialogue box added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dialogue box added" />
   </component>
 </project>

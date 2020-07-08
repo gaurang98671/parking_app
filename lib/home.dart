@@ -97,13 +97,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       color: Colors.purple,
                                       onPressed: ()=>{},
                                     )
-
-
                                   ],
                                 );
                               }
                           },
-
                         ),
                       ),
                     );
@@ -111,7 +108,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               )
             );
-
           }
           print(_markers.length);
         }
@@ -126,7 +122,6 @@ class _HomeScreenState extends State<HomeScreen> {
           markers: _markers.toSet(),
 
         ),
-            
           ],
         );
       },

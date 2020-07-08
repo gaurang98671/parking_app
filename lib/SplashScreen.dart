@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,8 +16,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    _mockcheckForSession().then((status) {
-      if (FirebaseAuth.instance.currentUser()!=null) {
+    _mockcheckForSession().then((status) async {
+      if (await FirebaseAuth.instance.currentUser() != null) {
+
+        FirebaseUser u=await FirebaseAuth.instance.currentUser();
+        print(u.email);
         _navigateToHome();
       } else {
         _navigateToLogin();
