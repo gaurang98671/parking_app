@@ -11,7 +11,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String user_name, password;
-  void login_user() {
+  void login_user() async {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: user_name, password: password);
     Navigator.push(

@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:parkingapp/login.dart';
+import 'package:parkingapp/user_profile.dart';
 class HomeScreen extends StatefulWidget {
   final FirebaseUser user;
 
@@ -27,19 +29,44 @@ class _HomeScreenState extends State<HomeScreen> {
         child: new Drawer(
           child: new ListView(
             children: <Widget>[
+              Container(
+                height: 80,
+                color: Colors.purpleAccent,
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: AssetImage(
+                      //get image from storage
+                        'assets/images/vv.PNG'
+                    ),
+                  ),
+                  //get current user name from data base
+                  title: Text('Gaurang Pawar'),
+                  //get current user email from data base
+                  subtitle: Text('gaurangpawar@gmail.com'),
+                ),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.account_circle,
+                ),
+                title: Text('Profile'),
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>user_profile()));
+                  },
+              ),
 
               ListTile(
                 leading: Icon(
                   Icons.history,
                 ),
-                title: Text('History'),
+                title: Text('My bookings'),
               ),
 
               ListTile(
                 leading: Icon(
                   Icons.add,
                 ),
-                title: Text('Rent parking'),
+                title: Text('Host parking'),
               ),
               ListTile(
                 leading: Icon(
@@ -53,6 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.red,
                 ),
                 title: Text('Logout'),
+                onTap: (){
+                  FirebaseAuth.instance.signOut();
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+                },
               )
             ],
           ),

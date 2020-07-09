@@ -13,7 +13,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  String _user_name,_email, _password, _confirm_password;
+  String _user_name,_email, _password, _phone_number;
   String userId;
 
      void signUp() async {
@@ -33,9 +33,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
        print(e.message);
        }
 
-
-
-
+       Firestore.instance.collection("Users").document(userId).setData(
+           {
+             'Name': _user_name,
+             'Phone Number': _phone_number,
+             'Verified': false,
+             'profile pic': 'none'
+           });
   }
   @override
   Widget build(BuildContext context) {
@@ -151,7 +155,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                   child: TextField(
-                    onChanged: (con_pass)=>{_confirm_password=con_pass},
+                    onChanged: (phn)=>{_phone_number=phn},
                     style: TextStyle(
                       color: Color(0xff020061),
                     ),
@@ -165,7 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xff020061)),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      labelText: 'confirm password',
+                      labelText: 'Phone Number',
                       labelStyle: TextStyle(
                         color: Color(0xffB65133),
                       ),

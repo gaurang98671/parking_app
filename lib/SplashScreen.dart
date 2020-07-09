@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'home.dart';
 import 'login.dart';
@@ -19,7 +20,9 @@ class _SplashScreenState extends State<SplashScreen> {
     _mockcheckForSession().then((status) async {
       if (await FirebaseAuth.instance.currentUser() != null) {
 
+        SharedPreferences pref=await SharedPreferences.getInstance();
         FirebaseUser u=await FirebaseAuth.instance.currentUser();
+        pref.setString('uid', u.uid);
         print(u.email);
         _navigateToHome();
       } else {
