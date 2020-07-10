@@ -12,9 +12,6 @@
     <list default="true" id="b33ff43e-099e-4222-bb61-33dc0587eda9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/SplashScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/SplashScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/signup.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/signup.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/user_profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/user_profile.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -161,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594313408450</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="profile page working">
+      <created>1594373214690</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1594373214690</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -188,6 +192,7 @@
     <MESSAGE value="commit before new pop up window" />
     <MESSAGE value="Drawer menu added" />
     <MESSAGE value="Profile page added&#10;After signup id gets stored in shared prefs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Profile page added&#10;After signup id gets stored in shared prefs" />
+    <MESSAGE value="profile page working" />
+    <option name="LAST_COMMIT_MESSAGE" value="profile page working" />
   </component>
 </project>

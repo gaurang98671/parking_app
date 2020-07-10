@@ -20,8 +20,13 @@ class _SplashScreenState extends State<SplashScreen> {
     _mockcheckForSession().then((status) async {
       if (await FirebaseAuth.instance.currentUser() != null) {
 
+
         FirebaseUser u=await FirebaseAuth.instance.currentUser();
         print(u.email);
+        SharedPreferences pref= await SharedPreferences.getInstance();
+        await pref.setString('user_email', u.email);
+
+
        _navigateToHome();
             } else {
         _navigateToLogin();
