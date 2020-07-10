@@ -12,7 +12,6 @@
     <list default="true" id="b33ff43e-099e-4222-bb61-33dc0587eda9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/host_parking.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/host_parking.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -180,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594393568098</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="markers">
+      <created>1594408940543</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1594408940543</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -210,6 +216,7 @@
     <MESSAGE value="profile page working" />
     <MESSAGE value="shared pref on splash screen" />
     <MESSAGE value="host parking completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="host parking completed" />
+    <MESSAGE value="markers" />
+    <option name="LAST_COMMIT_MESSAGE" value="markers" />
   </component>
 </project>

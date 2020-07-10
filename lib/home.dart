@@ -270,28 +270,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                           //     'assets/images/vv.PNG'),
                                           // radius: 40,
                                         ),
-                                        ListTile(
-                                          title: Center(
-                                            child: Text(
-                                              snap.data.documents[i]['Address']
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 30,
-                                              ),
-                                            ),
+                                        Text(
+                                          snap.data.documents[i]['Address']
+                                              .toString(),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 30,
                                           ),
-                                          subtitle: Center(
-                                            child: Text(
-                                              "Aquired spots: " +
-                                                  snap.data
-                                                      .documents[i]['Aquired']
-                                                      .toString(),
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.black45),
-                                            ),
-                                          ),
+                                        ),
+                                        Text(
+                                          "Available spots: " +
+                                              (snap.data.documents[i]["Aquired"]).toString()+"/"+(snapshot.data.documents[i]["Quantity"]).toString(),
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.black45),
                                         ),
                                         SizedBox(
                                           height: 20,
@@ -313,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             padding: const EdgeInsets.fromLTRB(
                                                 7, 0, 0, 0),
                                             child: Text(
-                                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+                                              snapshot.data.documents[i]['Description'],
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black45,
@@ -323,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         Card(
                                             child: ExpansionTile(
-                                          title: Text(
+                                             title: Text(
                                             'Hourly Rate',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -334,11 +326,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           children: <Widget>[
                                             ListTile(
                                               title: Text('Two-wheeler'),
-                                              subtitle: Text('40 Rs/hr'),
+                                              subtitle: Text(snapshot.data.documents[i]['2 wheeler cost'].toString()),
                                             ),
                                             ListTile(
                                               title: Text('Four-wheeler'),
-                                              subtitle: Text('80 Rs/hr'),
+                                              subtitle: Text(snapshot.data.documents[i]['4 wheeler cost'].toString()),
                                             )
                                           ],
                                         )),
@@ -356,29 +348,46 @@ class _HomeScreenState extends State<HomeScreen> {
                                               //Covered
                                               ListTile(
                                                 leading: Icon(
-                                                    Icons.lightbulb_outline),
+                                                    Icons.lightbulb_outline,
+                                                color: get_color(snapshot.data.documents[i]['hasLight']),
+                                                ),
                                                 title: Text('Lit'),
                                               ),
                                               ListTile(
                                                 leading: Icon(
-                                                    Icons.lightbulb_outline),
+                                                    Icons.camera_alt,
+                                                  color: get_color(snapshot.data.documents[i]['hasCCTV']),
+                                                ),
                                                 // Icon(Icons.lightbulb_outline),
                                                 title: Text('CCTV'),
                                               ),
                                               ListTile(
                                                 leading: Icon(
-                                                    Icons.lightbulb_outline),
+                                                    Icons.lock_outline,
+                                                  color: get_color(snapshot.data.documents[i]['isGuarded']),
+                                                ),
                                                 title: Text('Guarded'),
                                               ),
                                               ListTile(
                                                 leading: Icon(
-                                                    Icons.lightbulb_outline),
+                                                    Icons.lightbulb_outline,
+                                                  color: get_color(snapshot.data.documents[i]['isGated']),
+                                                ),
                                                 title: Text('Gated'),
                                               ),
                                               ListTile(
                                                 leading: Icon(
-                                                    Icons.lightbulb_outline),
+                                                    Icons.lightbulb_outline,
+                                                  color: get_color(snapshot.data.documents[i]['isOvernight']),
+                                                ),
                                                 title: Text('Overnight'),
+                                              ),
+                                              ListTile(
+                                                leading: Icon(
+                                                    Icons.lightbulb_outline,
+                                                  color: get_color(snapshot.data.documents[i]['hasCover']),
+                                                ),
+                                                title: Text('Covered'),
                                               ),
                                             ],
                                           ),
@@ -438,9 +447,16 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         else
           {
-            //return red marker
+            //return red markerc1
           }
       }
 
+  }
+
+  get_color(document) {
+    if(document)
+      {
+        return Colors.blue;
+      }
   }
 }
