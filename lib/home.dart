@@ -7,9 +7,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parkingapp/host_parking.dart';
 import 'package:parkingapp/login.dart';
+import 'package:parkingapp/requests_page.dart';
 import 'package:parkingapp/user_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'host_parking.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,9 +23,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  BitmapDescriptor pinLocationIcon1, pinLocationIcon2, pinLocationIcon3;
+  String current_users_email='';
+  String current_user_id='';
+  @override
+  void initState() {
+    get_email();
+    super.initState();
+    setCustomMapPin();
+  }
+
+  void setCustomMapPin() async {
+    pinLocationIcon1 = BitmapDescriptor.fromAsset('assets/images/marker.png');
+    pinLocationIcon2 =
+        BitmapDescriptor.fromAsset('assets/images/marker_red.png');
+    pinLocationIcon3 =
+        BitmapDescriptor.fromAsset('assets/images/marker_green.png');
+  }
+
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Marker> _markers = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,28 +63,40 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: <Widget>[
                       CircleAvatar(
                         backgroundImage: AssetImage(
-                            //get image from storage
+                          //get image from storage
                             'assets/images/vv.PNG'),
                         radius: 40,
                       ),
                       // SizedBox(
                       //   height: 20,
                       // ),
-                      ListTile(
-                        //get current user name from data base
-                        title: Center(
-                            child: Text(
-                          'Gaurang Pawar',
-                          style:
-                              TextStyle(fontSize: 18, color: Color(0xff020061)),
-                        )),
-                        //get current user email from data base
-                        subtitle: Center(
-                          child: Text(
-                            'gaurangpawar@gmail.com',
-                            style: TextStyle(color: Colors.black45),
-                          ),
-                        ),
+                      FutureBuilder(
+                        future: getUserInfo(),
+                        builder: (_ , snapshot){
+                          if(!snapshot.hasData)
+                            {
+                              return Text('Couldnt load data');
+                            }
+                          else
+                            {
+                              return  ListTile(
+                                //get current user name from data base
+                                title: Center(
+                                    child: Text(
+                                      snapshot.data[0]['Name'],
+                                      style:
+                                      TextStyle(fontSize: 18, color: Color(0xff020061)),
+                                    )),
+                                //get current user email from data base
+                                subtitle: Center(
+                                  child: Text(
+                                    snapshot.data[0]['email'],
+                                    style: TextStyle(color: Colors.black45),
+                                  ),
+                                ),
+                              );
+                            }
+                        },
                       ),
                       // SizedBox(
                       //   height: 2,
@@ -75,23 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 250,
                         color: Color(0xff020061),
                       ),
-                      ListTile(
-                        leading: Icon(
-                          Icons.home,
-                          color: Color(0xff020061),
-                        ),
-                        title: Text(
-                          'Home',
-                          style:
-                              TextStyle(color: Color(0xff020061), fontSize: 15),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
-                        },
-                      ),
+
                       ListTile(
                         leading: Icon(
                           Icons.account_circle,
@@ -100,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: Text(
                           'Profile',
                           style:
-                              TextStyle(color: Color(0xff020061), fontSize: 15),
+                          TextStyle(color: Color(0xff020061), fontSize: 15),
                         ),
                         onTap: () {
                           Navigator.push(
@@ -111,16 +126,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       ListTile(
                         leading: Icon(
-                          Icons.history,
+                          Icons.notifications,
                           color: Color(0xff020061),
                         ),
                         title: Text(
-                          'My bookings',
+                          'Parking requests',
                           style:
-                              TextStyle(color: Color(0xff020061), fontSize: 15),
+                          TextStyle(color: Color(0xff020061), fontSize: 15),
                         ),
                         onTap: () {
-                          print('Current user');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>requests_page()));
                         },
                       ),
                       ListTile(
@@ -131,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: Text(
                           'Host parking',
                           style:
-                              TextStyle(color: Color(0xff020061), fontSize: 15),
+                          TextStyle(color: Color(0xff020061), fontSize: 15),
                         ),
                         onTap: () {
                           Navigator.push(
@@ -148,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: Text(
                           'About',
                           style:
-                              TextStyle(color: Color(0xff020061), fontSize: 15),
+                          TextStyle(color: Color(0xff020061), fontSize: 15),
                         ),
                       ),
                       // SizedBox(
@@ -215,7 +230,9 @@ class _HomeScreenState extends State<HomeScreen> {
           _markers.clear();
           for (int i = 0; i < snapshot.data.documents.length; i++) {
             _markers.add(new Marker(
-                icon: _getMarker(snapshot.data.documents[i]['Aquired'], snapshot.data.documents[i]['Quantity'], snapshot.data.documents[i]['Type']),
+                icon: _getMarker(snapshot.data.documents[i]['Aquired'],
+                    snapshot.data.documents[i]['Quantity'],
+                    snapshot.data.documents[i]['Type']),
                 visible: true,
                 markerId: MarkerId(i.toString()),
                 position: new LatLng(
@@ -252,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           width: 200,
                                           child: ClipRRect(
                                             borderRadius:
-                                                BorderRadius.circular(20),
+                                            BorderRadius.circular(20),
                                             child: Image(
                                                 image: AssetImage(
                                                     'assets/images/vv.PNG')),
@@ -280,11 +297,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         Text(
                                           "Available spots: " +
-                                              (snap.data.documents[i]["Aquired"]).toString()+"/"+(snapshot.data.documents[i]["Quantity"]).toString(),
+                                              (snap.data
+                                                  .documents[i]["Aquired"])
+                                                  .toString() + "/" +
+                                              (snapshot.data
+                                                  .documents[i]["Quantity"])
+                                                  .toString(),
                                           style: TextStyle(
                                               fontSize: 20,
                                               color: Colors.black45),
                                         ),
+                                        get_host_name(snapshot.data.documents[i]['Type'], snapshot.data.documents[i]['Hosted by']),
+
                                         SizedBox(
                                           height: 20,
                                         ),
@@ -305,7 +329,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             padding: const EdgeInsets.fromLTRB(
                                                 7, 0, 0, 0),
                                             child: Text(
-                                              snapshot.data.documents[i]['Description'],
+                                              snapshot.data
+                                                  .documents[i]['Description'],
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black45,
@@ -315,25 +340,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         Card(
                                             child: ExpansionTile(
-                                             title: Text(
-                                            'Hourly Rate',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xff020061),
-                                            ),
-                                          ),
-                                          // subtitle: Text('22 Rs/hr'),
-                                          children: <Widget>[
-                                            ListTile(
-                                              title: Text('Two-wheeler'),
-                                              subtitle: Text(snapshot.data.documents[i]['2 wheeler cost'].toString()),
-                                            ),
-                                            ListTile(
-                                              title: Text('Four-wheeler'),
-                                              subtitle: Text(snapshot.data.documents[i]['4 wheeler cost'].toString()),
-                                            )
-                                          ],
-                                        )),
+                                              title: Text(
+                                                'Hourly Rate',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color(0xff020061),
+                                                ),
+                                              ),
+                                              // subtitle: Text('22 Rs/hr'),
+                                              children: <Widget>[
+                                                ListTile(
+                                                  title: Text('Two-wheeler'),
+                                                  subtitle: Text(snapshot.data
+                                                      .documents[i]['2 wheeler cost']
+                                                      .toString()),
+                                                ),
+                                                ListTile(
+                                                  title: Text('Four-wheeler'),
+                                                  subtitle: Text(snapshot.data
+                                                      .documents[i]['4 wheeler cost']
+                                                      .toString()),
+                                                )
+                                              ],
+                                            )),
                                         Card(
                                           child: ExpansionTile(
                                             //lit, cctv ,gated,gaurded
@@ -348,44 +377,50 @@ class _HomeScreenState extends State<HomeScreen> {
                                               //Covered
                                               ListTile(
                                                 leading: Icon(
-                                                    Icons.lightbulb_outline,
-                                                color: get_color(snapshot.data.documents[i]['hasLight']),
+                                                  Icons.lightbulb_outline,
+                                                  color: get_color(snapshot.data
+                                                      .documents[i]['hasLight']),
                                                 ),
                                                 title: Text('Lit'),
                                               ),
                                               ListTile(
                                                 leading: Icon(
-                                                    Icons.camera_alt,
-                                                  color: get_color(snapshot.data.documents[i]['hasCCTV']),
+                                                  Icons.camera_alt,
+                                                  color: get_color(snapshot.data
+                                                      .documents[i]['hasCCTV']),
                                                 ),
                                                 // Icon(Icons.lightbulb_outline),
                                                 title: Text('CCTV'),
                                               ),
                                               ListTile(
                                                 leading: Icon(
-                                                    Icons.lock_outline,
-                                                  color: get_color(snapshot.data.documents[i]['isGuarded']),
+                                                  Icons.lock_outline,
+                                                  color: get_color(snapshot.data
+                                                      .documents[i]['isGuarded']),
                                                 ),
                                                 title: Text('Guarded'),
                                               ),
                                               ListTile(
                                                 leading: Icon(
-                                                    Icons.lightbulb_outline,
-                                                  color: get_color(snapshot.data.documents[i]['isGated']),
+                                                  Icons.lightbulb_outline,
+                                                  color: get_color(snapshot.data
+                                                      .documents[i]['isGated']),
                                                 ),
                                                 title: Text('Gated'),
                                               ),
                                               ListTile(
                                                 leading: Icon(
-                                                    Icons.lightbulb_outline,
-                                                  color: get_color(snapshot.data.documents[i]['isOvernight']),
+                                                  Icons.lightbulb_outline,
+                                                  color: get_color(snapshot.data
+                                                      .documents[i]['isOvernight']),
                                                 ),
                                                 title: Text('Overnight'),
                                               ),
                                               ListTile(
                                                 leading: Icon(
-                                                    Icons.lightbulb_outline,
-                                                  color: get_color(snapshot.data.documents[i]['hasCover']),
+                                                  Icons.lightbulb_outline,
+                                                  color: get_color(snapshot.data
+                                                      .documents[i]['hasCover']),
                                                 ),
                                                 title: Text('Covered'),
                                               ),
@@ -396,10 +431,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           child: Text(
                                             'Book Now',
                                             style:
-                                                TextStyle(color: Colors.white),
+                                            TextStyle(color: Colors.white),
                                           ),
                                           color: Color(0xffec8b5e),
-                                          onPressed: () => {},
+                                          onPressed: () => {
+                                            make_requests(current_users_email, snapshot.data.documents[i]['Host id'])
+                                          },
                                         )
                                       ],
                                     ),
@@ -412,7 +449,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                 }));
           }
-          print(_markers.length);
+
         }
         return Stack(
           children: <Widget>[
@@ -433,30 +470,59 @@ class _HomeScreenState extends State<HomeScreen> {
     await pref.clear();
   }
 
-  BitmapDescriptor _getMarker(aquired, quantity, type) {
+  get_color(document) {
+    if (document) {
+      return Colors.blue;
+    }
+  }
 
-    if(type=='User hosted')
+  BitmapDescriptor _getMarker(aquired, quantity, type) {
+    if (type == 'User hosted') {
+      return pinLocationIcon1;
+    } else {
+      if (aquired != quantity) {
+        //return green marker
+        return pinLocationIcon3;
+      } else {
+        //return red marker
+        return pinLocationIcon2;
+      }
+    }
+  }
+
+  get_host_name(document, host_name) {
+    if(document=='Public')
       {
-        //return blue marker
+        return Text('Public parking');
       }
     else
       {
-        if(aquired!=quantity)
-          {
-            //return green marker
-          }
-        else
-          {
-            //return red markerc1
-          }
-      }
-
-  }
-
-  get_color(document) {
-    if(document)
-      {
-        return Colors.blue;
+        return Text('Hosted by: '+ host_name.toString());
       }
   }
+
+  Future<void> get_email() async{
+    FirebaseUser user= await FirebaseAuth.instance.currentUser();
+    SharedPreferences prefs= await SharedPreferences.getInstance();
+    setState(() {
+      current_users_email=  prefs.getString('user_email');
+      current_user_id= user.uid;
+    });
+  }
+
+  Future getUserInfo() async
+  {
+    var firestore = Firestore.instance;
+    QuerySnapshot qn = await firestore.collection("Users").where('email',isEqualTo: current_users_email).getDocuments();
+    return qn.documents;
+  }
+
+  make_requests(String current_users_email, host_id) {
+   Firestore.instance.collection('Users').document(host_id).collection('requests').document().setData({
+     'Useremail': current_users_email,
+     'Time': DateTime.now().toIso8601String().toString(),
+   });
+  }
+
+
 }

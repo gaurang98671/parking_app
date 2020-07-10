@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_switch_button/custom_switch_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +13,7 @@ class host_parking extends StatefulWidget {
 
 class _host_parkingState extends State<host_parking> {
   String _address, _hourly_cost, _description, _quantity;
+  String user_id='';
   String _lat,_long;
   String current_users_email='';
   bool is_gated=false, has_cctv=false, has_light=false, has_cover=false, is_overnight=false, is_guarded=false;
@@ -279,6 +281,7 @@ class _host_parkingState extends State<host_parking> {
         'Hourly cost': int.parse(_hourly_cost),
         'Type': 'User hosted',
         'Hosted by': current_users_email,
+        'Host id': user_id,
         'Description': _description,
         'location': GeoPoint(double.parse(_lat), double.parse(_long)),
         'isGated': is_gated,
@@ -292,9 +295,11 @@ class _host_parkingState extends State<host_parking> {
   }
 
   Future<void> get_email() async{
+    FirebaseUser user= await FirebaseAuth.instance.currentUser();
     SharedPreferences prefs= await SharedPreferences.getInstance();
     setState(() {
       current_users_email=  prefs.getString('user_email');
+      user_id= user.uid;
     });
   }
 }
