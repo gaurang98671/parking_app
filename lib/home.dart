@@ -215,6 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
           _markers.clear();
           for (int i = 0; i < snapshot.data.documents.length; i++) {
             _markers.add(new Marker(
+                icon: _getMarker(snapshot.data.documents[i]['Aquired'], snapshot.data.documents[i]['Quantity'], snapshot.data.documents[i]['Type']),
                 visible: true,
                 markerId: MarkerId(i.toString()),
                 position: new LatLng(
@@ -421,5 +422,25 @@ class _HomeScreenState extends State<HomeScreen> {
   void clear_pref() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.clear();
+  }
+
+  BitmapDescriptor _getMarker(aquired, quantity, type) {
+
+    if(type=='User hosted')
+      {
+        //return blue marker
+      }
+    else
+      {
+        if(aquired!=quantity)
+          {
+            //return green marker
+          }
+        else
+          {
+            //return red marker
+          }
+      }
+
   }
 }
