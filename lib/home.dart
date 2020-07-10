@@ -23,6 +23,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  BitmapDescriptor pinLocationIcon1, pinLocationIcon2, pinLocationIcon3;
+  @override
+  void initState() {
+    super.initState();
+    setCustomMapPin();
+  }
+
+  void setCustomMapPin() async {
+    pinLocationIcon1 = BitmapDescriptor.fromAsset('assets/images/marker.png');
+    pinLocationIcon2 =
+        BitmapDescriptor.fromAsset('assets/images/marker_red.png');
+    pinLocationIcon3 =
+        BitmapDescriptor.fromAsset('assets/images/marker_green.png');
+  }
+
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Marker> _markers = [];
@@ -200,7 +215,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () => scaffoldKey.currentState.openDrawer(),
                   color: Colors.white,
                   iconSize: 35,
-                ))
+                )),
+            // Positioned(
+            //   right: 10,
+            //   top: 25,
+            //   child: Container(
+            //     child: Column(
+            //       children: <Widget>[
+            //         Text('Find your spot',
+            //             style: TextStyle(
+            //                 fontWeight: FontWeight.bold,
+            //                 fontSize: 20,
+            //                 color: Color(0xff020061))),
+
+            //           image BitmapDescriptor.fromAsset('assets/images/marker_green.png');,
+
+            //       ],
+            //     ),
+            //     // height: 60,
+            //     // width: 200,
+            //     color: Colors.white,
+            //   ),
+            // ),
           ],
         ));
   }
@@ -215,7 +251,10 @@ class _HomeScreenState extends State<HomeScreen> {
           _markers.clear();
           for (int i = 0; i < snapshot.data.documents.length; i++) {
             _markers.add(new Marker(
-                icon: _getMarker(snapshot.data.documents[i]['Aquired'], snapshot.data.documents[i]['Quantity'], snapshot.data.documents[i]['Type']),
+                icon: _getMarker(
+                    snapshot.data.documents[i]['Aquired'],
+                    snapshot.data.documents[i]['Quantity'],
+                    snapshot.data.documents[i]['Type']),
                 visible: true,
                 markerId: MarkerId(i.toString()),
                 position: new LatLng(
@@ -425,22 +464,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   BitmapDescriptor _getMarker(aquired, quantity, type) {
-
-    if(type=='User hosted')
-      {
-        //return blue marker
+    if (type == 'User hosted') {
+      return pinLocationIcon1;
+    } else {
+      if (aquired != quantity) {
+        //return green marker
+        return pinLocationIcon3;
+      } else {
+        //return red marker
+        return pinLocationIcon2;
       }
-    else
-      {
-        if(aquired!=quantity)
-          {
-            //return green marker
-          }
-        else
-          {
-            //return red marker
-          }
-      }
-
+    }
   }
 }
