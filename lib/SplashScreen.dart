@@ -20,12 +20,10 @@ class _SplashScreenState extends State<SplashScreen> {
     _mockcheckForSession().then((status) async {
       if (await FirebaseAuth.instance.currentUser() != null) {
 
-        SharedPreferences pref=await SharedPreferences.getInstance();
         FirebaseUser u=await FirebaseAuth.instance.currentUser();
-        pref.setString('uid', u.uid);
         print(u.email);
-        _navigateToHome();
-      } else {
+       _navigateToHome();
+            } else {
         _navigateToLogin();
       }
     });
@@ -41,6 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void _navigateToHome() {
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+
   }
 
   void _navigateToLogin() {

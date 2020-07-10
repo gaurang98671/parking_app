@@ -24,8 +24,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
         userId=user.uid;
 
-
-       Navigator.push(context, MaterialPageRoute(
+        SharedPreferences pref=await SharedPreferences.getInstance();
+        await pref.setString('user_email', _email);
+        Navigator.push(context, MaterialPageRoute(
        builder: (context)=>HomeScreen(user: user,)
        ));
        }
@@ -38,7 +39,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
              'Name': _user_name,
              'Phone Number': _phone_number,
              'Verified': false,
-             'profile pic': 'none'
+             'profile pic': 'none',
+             'email': _email
            });
   }
   @override

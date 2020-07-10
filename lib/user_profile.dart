@@ -7,30 +7,46 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class user_profile extends StatefulWidget {
+
   @override
   _user_profileState createState() => _user_profileState();
 }
 
 class _user_profileState extends State<user_profile> {
-  String uid='';
-  DocumentSnapshot ss;
+  String current_users_email='';
+
+
+  Future getUserInfo() async
+  {
+    var firestore = Firestore.instance;
+    QuerySnapshot qn = await firestore.collection("Users").where('email',isEqualTo: current_users_email).getDocuments();
+    return qn.documents;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    get_email();
+    super.initState();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
-        stream: Firestore.instance.collection("Users").document(uid).snapshots(),
-        builder: (context, snapshot)
+      body: FutureBuilder(
+        future:  getUserInfo(),
+        builder: (_, snapshot)
         {
           if(!snapshot.hasData)
             {
-              return CircularProgressIndicator();
+              return Text("No profile");
             }
           else
             {
               return Container(
                 child: Column(
                   children: <Widget>[
-                    get_profile(snapshot.data["profile pic"]),
+                    get_profile(snapshot.data[0]["profile pic"]),
                     GestureDetector(
                       child: Text('Upload Picture',
                       style: TextStyle(
@@ -39,9 +55,9 @@ class _user_profileState extends State<user_profile> {
                       ),
                       onTap: (){},
                     ),
-                    Text(snapshot.data["Name"]),
-                    get_verify_tag(snapshot.data['Verified']),
-                    Text(snapshot.data["Phone Number"])
+                    Text(snapshot.data[0]["Name"]),
+                    get_verify_tag(snapshot.data[0]['Verified']),
+                    Text(snapshot.data[0]["Phone Number"])
                   ],
                 ),
               );
@@ -51,12 +67,13 @@ class _user_profileState extends State<user_profile> {
     );
   }
 
-  void get_uid() async{
+  /*void get_uid() async{
+    print('Get uid function called !!!!!!!!!');
     final pref= await SharedPreferences.getInstance();
-    uid= pref.get('uid');
-    DocumentReference ref= Firestore.instance.collection("Users").document(uid);
-    ss=await ref.get();
-  }
+    setState(() {
+      uid=pref.getString('uid');
+    });
+  }*/
 
   Widget get_profile(String profile_url)
   {
@@ -81,5 +98,13 @@ class _user_profileState extends State<user_profile> {
         );
       }
   }
+
+    Future<void> get_email() async{
+    SharedPreferences prefs= await SharedPreferences.getInstance();
+    setState(() {
+      current_users_email=  prefs.getString('user_email');
+    });
+  }
+
 
 }

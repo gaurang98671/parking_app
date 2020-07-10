@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +7,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parkingapp/login.dart';
 import 'package:parkingapp/user_profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class HomeScreen extends StatefulWidget {
   final FirebaseUser user;
-
-  const HomeScreen({Key key, this.user}) : super(key: key);
+  const HomeScreen({Key key, this.user,}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -60,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.history,
                 ),
                 title: Text('My bookings'),
+                onTap: (){print('Current user');},
               ),
 
               ListTile(
@@ -82,6 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: Text('Logout'),
                 onTap: (){
                   FirebaseAuth.instance.signOut();
+                  clear_pref();
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
                 },
               )
@@ -202,6 +205,11 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       },
     );
+  }
+
+  void clear_pref() async{
+    SharedPreferences pref= await SharedPreferences.getInstance();
+    await pref.clear();
   }
 
 
