@@ -9,9 +9,12 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b33ff43e-099e-4222-bb61-33dc0587eda9" name="Default Changelist" comment="latest">
+    <list default="true" id="b33ff43e-099e-4222-bb61-33dc0587eda9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/currently_parked.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/host_parking.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/host_parking.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/requests_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/requests_page.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -221,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594448025187</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="book option removed for public parkings">
+      <created>1594450127501</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1594450127501</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -267,6 +277,7 @@
     <MESSAGE value="Request page added but updating count after req getting accepted is remaning" />
     <MESSAGE value="Requests completed" />
     <MESSAGE value="latest" />
-    <option name="LAST_COMMIT_MESSAGE" value="latest" />
+    <MESSAGE value="book option removed for public parkings" />
+    <option name="LAST_COMMIT_MESSAGE" value="book option removed for public parkings" />
   </component>
 </project>

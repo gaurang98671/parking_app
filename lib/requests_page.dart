@@ -109,12 +109,13 @@ class _requests_pageState extends State<requests_page> {
   }
 
   void increment_counter(String address) async {
+    print('d'+address);
     QuerySnapshot documents= await Firestore.instance.collection('Parkings').where("Address", isEqualTo: address).getDocuments();
    Firestore.instance.collection('Parkings').where("Address", isEqualTo: address).getDocuments().then((sn){
      for(int i=0; i<sn.documents.length ; i++ )
        {
          String id=sn.documents[i].documentID;
-
+        print(id);
          Firestore.instance.collection('Parkings').document(id).updateData({'Aquired':  FieldValue.increment(1)});
        }
    });

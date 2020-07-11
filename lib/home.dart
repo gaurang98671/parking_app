@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:parkingapp/currently_parked.dart';
 import 'package:parkingapp/host_parking.dart';
 import 'package:parkingapp/login.dart';
 import 'package:parkingapp/requests_page.dart';
@@ -163,10 +164,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Color(0xff020061),
                         ),
                         title: Text(
-                          'About',
+                          'Currently parked',
                           style:
                           TextStyle(color: Color(0xff020061), fontSize: 15),
                         ),
+                        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>currently_parked()));},
                       ),
                       // SizedBox(
                       //   height: 60,
@@ -417,7 +419,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ],
                                           ),
                                         ),
-                                        get_button(snapshot.data.documents[i]['Type'],snapshot.data.documents[i]['Host id']),
+                                        get_button(snapshot.data.documents[i]['Type'],snapshot.data.documents[i]['Host id'],snapshot.data.documents[i]['Address']),
                                       ],
                                     ),
                                   );
@@ -521,8 +523,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   }
 
-  get_button(document, doc2) {
-    if(document=='Public')
+  get_button(type, doc2, address) {
+    if(type=='Public')
       {
         return SizedBox(height: 1,);
       }
@@ -538,7 +540,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: () =>
           {
 
-            make_requests(current_users_email, doc2, document,)
+            make_requests(current_users_email, doc2, address)
           }      );
 
       }
