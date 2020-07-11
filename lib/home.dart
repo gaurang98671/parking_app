@@ -529,7 +529,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   make_requests(String current_users_email, host_id, address) {
 
+    print('Function called');
     Firestore rootRef = Firestore.instance;
+    print(host_id+ current_users_email+ current_user_phn+current_users_name+current_user_id);
     CollectionReference ref = rootRef.collection("Users").document(host_id).collection("Requests");
     ref.add({
       'UserEmail': current_users_email,
@@ -538,6 +540,8 @@ class _HomeScreenState extends State<HomeScreen> {
       'Name': current_users_name.toString(),
       'Phone': current_user_phn
 
+    }).whenComplete((){
+      print('cmpleted');
     });
 
   }

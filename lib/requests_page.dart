@@ -57,7 +57,8 @@ class _requests_pageState extends State<requests_page> {
                         SizedBox(width: 55,),
                         RaisedButton.icon(onPressed: ()
                         {
-                          Firestore.instance.collection('Parkings').document(user_id).collection('Requests').document(id).delete();
+                          increment_counter(address);
+
                         },
                           icon: Icon(Icons.check),
                           label: Text('Accept', style: TextStyle(
@@ -67,7 +68,8 @@ class _requests_pageState extends State<requests_page> {
                         SizedBox(width: 20,),
                         RaisedButton.icon(onPressed: ()
                         {
-                          //Accept function is rremaning
+
+                          Firestore.instance.collection('Users').document(user_id).collection('Requests').document(id).delete();
                           },
                           icon: Icon(Icons.remove),
                           label: Text('Reject',
@@ -104,6 +106,18 @@ class _requests_pageState extends State<requests_page> {
     setState(() {
       user_id= user.uid;
     });
+  }
+
+  void increment_counter(String address) async {
+    QuerySnapshot documents= await Firestore.instance.collection('Parkings').where("Address", isEqualTo: address).getDocuments();
+   Firestore.instance.collection('Parkings').where("Address", isEqualTo: address).getDocuments().then((sn){
+     for(int i=0; i<sn.documents.length ; i++ )
+       {
+         String id=sn.documents[i].documentID;
+
+         Firestore.instance.collection('Parkings').document(id).updateData({'Aquired':  FieldValue.increment(1)});
+       }
+   });
   }
 
 
