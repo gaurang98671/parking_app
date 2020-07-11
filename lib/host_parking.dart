@@ -12,7 +12,7 @@ class host_parking extends StatefulWidget {
 }
 
 class _host_parkingState extends State<host_parking> {
-  String _address, _hourly_cost, _description, _quantity;
+  String _address, _2_wheeler_cost,_4_wheeler_cost, _description, _quantity;
   String user_id='';
   String _lat,_long;
   String current_users_email='';
@@ -43,17 +43,7 @@ class _host_parkingState extends State<host_parking> {
               ),
             ),
             SizedBox(height: 10,),
-            TextField(
-              keyboardType: TextInputType.number,
-              onChanged: (cost)=>{_hourly_cost=cost},
-              decoration: InputDecoration(
-                labelText: 'Hourly cost',
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff020061)),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-              ),
-            ),
-            SizedBox(height: 10,),
+
             TextField(
 
               onChanged: (descrip)=>{_description=descrip},
@@ -108,6 +98,41 @@ class _host_parkingState extends State<host_parking> {
                     },
                     decoration: InputDecoration(
                       labelText: 'Longitude',
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xff020061)),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Icon(Icons.directions_bike),
+
+                SizedBox(width: 150,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (cost)=>{
+                      _2_wheeler_cost=cost
+                    },
+                    decoration: InputDecoration(
+                      labelText: '2 wheeler cost',
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xff020061)),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                    ),
+                  ),
+                ),
+                Icon(Icons.directions_car),
+                SizedBox(width: 150,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (cost)=>{
+                      _4_wheeler_cost=cost
+                    },
+                    decoration: InputDecoration(
+                      labelText: '4 wheeler cost',
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xff020061)),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -257,7 +282,7 @@ class _host_parkingState extends State<host_parking> {
             SizedBox(height: 30,),
             RaisedButton.icon(onPressed: (){
               add_parking();
-              print("$_address  $_hourly_cost $_description  $_quantity  $_lat  $_long $is_overnight $is_guarded $current_users_email");
+              print("$_address  $_description  $_quantity  $_lat  $_long $is_overnight $is_guarded $current_users_email");
             },
               icon: Icon(Icons.local_parking, color: Colors.white,),
               label: Text('Host Parking',
@@ -276,9 +301,11 @@ class _host_parkingState extends State<host_parking> {
     Firestore.instance.collection("Parkings").add(
       {
         'Address': _address,
+        'Host id': user_id,
+        '2 wheeler cost': _2_wheeler_cost,
+        '4 wheeler cost': _4_wheeler_cost,
         'Aquired': 0,
         'Quantity': int.parse(_quantity),
-        'Hourly cost': int.parse(_hourly_cost),
         'Type': 'User hosted',
         'Hosted by': current_users_email,
         'Host id': user_id,

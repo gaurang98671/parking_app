@@ -26,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
   BitmapDescriptor pinLocationIcon1, pinLocationIcon2, pinLocationIcon3;
   String current_users_email='';
   String current_user_id='';
+  String current_user_phn='';
+  String current_users_name='';
   @override
   void initState() {
     get_email();
@@ -435,7 +437,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           color: Color(0xffec8b5e),
                                           onPressed: () => {
-                                            make_requests(current_users_email, snapshot.data.documents[i]['Host id'])
+
+                                            make_requests(current_users_email, snapshot.data.documents[i]['Host id'], snapshot.data.documents[i]['Address'],
+
+                                            )
                                           },
                                         )
                                       ],
@@ -504,9 +509,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> get_email() async{
     FirebaseUser user= await FirebaseAuth.instance.currentUser();
     SharedPreferences prefs= await SharedPreferences.getInstance();
+    String em= prefs.getString('user_email');
+    var firestore = Firestore.instance;
+    QuerySnapshot qn = await firestore.collection("Users").where('email',isEqualTo: em).getDocuments();
     setState(() {
-      current_users_email=  prefs.getString('user_email');
+      current_users_email=  em;
       current_user_id= user.uid;
+      current_user_phn= qn.documents[0]['Phone Number'];
+      current_users_name= qn.documents[0]['Name'];
     });
   }
 
@@ -517,11 +527,19 @@ class _HomeScreenState extends State<HomeScreen> {
     return qn.documents;
   }
 
-  make_requests(String current_users_email, host_id) {
-   Firestore.instance.collection('Users').document(host_id).collection('requests').document().setData({
-     'Useremail': current_users_email,
-     'Time': DateTime.now().toIso8601String().toString(),
-   });
+  make_requests(String current_users_email, host_id, address) {
+
+    Firestore rootRef = Firestore.instance;
+    CollectionReference ref = rootRef.collection("Users").document(host_id).collection("Requests");
+    ref.add({
+      'UserEmail': current_users_email,
+      'Time': DateTime.now().toIso8601String().toString(),
+      'For': address.toString(),
+      'Name': current_users_name.toString(),
+      'Phone': current_user_phn
+
+    });
+
   }
 
 

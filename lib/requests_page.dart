@@ -22,7 +22,7 @@ class _requests_pageState extends State<requests_page> {
   Widget build(BuildContext context) {
     return  Container(
       child: StreamBuilder(
-        stream: Firestore.instance.collection('Users').document(user_id).collection('requests').snapshots(),
+        stream: Firestore.instance.collection('Users').document(user_id).collection('Requests').snapshots(),
         builder: (context, snapshot)
         {
           if(!snapshot.hasData){
@@ -37,23 +37,41 @@ class _requests_pageState extends State<requests_page> {
                 {
                   DocumentSnapshot docSnap=snapshot.data.documents[index];
 
-                  String email= docSnap['Name'].toString();
-                  //String time= docSnap['Time'].toString();
+                  String email= docSnap['UserEmail'].toString();
+                  String id=docSnap.documentID.toString();
+                  String time= docSnap['Time'].toString();
+                  String name= docSnap['Name'].toString();
+                  String phone= docSnap['Phone'].toString();
+                  String address=docSnap['For'].toString();
                   return  Card(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                   elevation: 2.0,
                   child: Column(
                     children: <Widget>[
-                      Text('User name: '+ email),
-                      //Text('Time: '+ time),
+                      Text('For: '+ address+ " parking"),
+                      Text('Email: '+ email),
+                      Text('Time: '+ time),
+                      Text('Name: '+ name),
+                      Text('Phone Number: '+ phone),
                       Row(children: <Widget>[
                         SizedBox(width: 55,),
-                        RaisedButton.icon(onPressed: (){}, icon: Icon(Icons.check), label: Text('Accept', style: TextStyle(
+                        RaisedButton.icon(onPressed: ()
+                        {
+                          Firestore.instance.collection('Parkings').document(user_id).collection('Requests').document(id).delete();
+                        },
+                          icon: Icon(Icons.check),
+                          label: Text('Accept', style: TextStyle(
                           color: Colors.white
                         ),
                         ), color: Colors.green,),
                         SizedBox(width: 20,),
-                        RaisedButton.icon(onPressed: (){}, icon: Icon(Icons.remove), label: Text('Reject', style: TextStyle(
+                        RaisedButton.icon(onPressed: ()
+                        {
+                          //Accept function is rremaning
+                          },
+                          icon: Icon(Icons.remove),
+                          label: Text('Reject',
+                            style: TextStyle(
                           color: Colors.white
                         ),
                         ),
