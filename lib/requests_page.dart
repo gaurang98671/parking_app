@@ -1,3 +1,6 @@
+import 'dart:core';
+import 'dart:core';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +60,7 @@ class _requests_pageState extends State<requests_page> {
                         SizedBox(width: 55,),
                         RaisedButton.icon(onPressed: ()
                         {
-                          increment_counter(address);
+                          increment_counter(address, id, name, phone);
 
                         },
                           icon: Icon(Icons.check),
@@ -108,7 +111,7 @@ class _requests_pageState extends State<requests_page> {
     });
   }
 
-  void increment_counter(String address) async {
+  void increment_counter(String address, String did, String name, String phn) async {
     print('d'+address);
     QuerySnapshot documents= await Firestore.instance.collection('Parkings').where("Address", isEqualTo: address).getDocuments();
    Firestore.instance.collection('Parkings').where("Address", isEqualTo: address).getDocuments().then((sn){
@@ -117,6 +120,18 @@ class _requests_pageState extends State<requests_page> {
          String id=sn.documents[i].documentID;
         print(id);
          Firestore.instance.collection('Parkings').document(id).updateData({'Aquired':  FieldValue.increment(1)});
+
+         Firestore rootRef = Firestore.instance;
+         CollectionReference ref = rootRef.collection("Users").document(user_id).collection("Currently parked");
+         ref.add({
+           "Address": address,
+           'Name': name,
+           'Phone Number': phn,
+           'Status': 'parked',
+           'Parking id': did
+         });
+
+         Firestore.instance.collection("Users").document(user_id).collection('Requests').document(did).delete();
        }
    });
   }

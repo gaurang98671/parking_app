@@ -40,49 +40,32 @@ class _currently_parkedState extends State<currently_parked> {
                 itemBuilder: (contex, index)
                 {
                   DocumentSnapshot docSnap=snapshot.data.documents[index];
-
-                  String email= docSnap['UserEmail'].toString();
                   String id=docSnap.documentID.toString();
-                  String time= docSnap['Time'].toString();
                   String name= docSnap['Name'].toString();
-                  String phone= docSnap['Phone'].toString();
-                  String address=docSnap['For'].toString();
+                  String phone= docSnap['Phone Number'].toString();
+                  String address=docSnap['Address'].toString();
+                  String parking_id=docSnap['Doc id'].toString();
                   return  Card(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                     elevation: 2.0,
                     child: Column(
                       children: <Widget>[
                         Text('For: '+ address+ " parking"),
-                        Text('Email: '+ email),
-                        Text('Time: '+ time),
                         Text('Name: '+ name),
                         Text('Phone Number: '+ phone),
                         Row(children: <Widget>[
                           SizedBox(width: 55,),
                           RaisedButton.icon(onPressed: ()
                           {
-                           // increment_counter(address);
+                            decrement_counter(address,parking_id, name, phone, id);
 
                           },
                             icon: Icon(Icons.check),
-                            label: Text('Accept', style: TextStyle(
+                            label: Text('Remove', style: TextStyle(
                                 color: Colors.white
                             ),
                             ), color: Colors.green,),
                           SizedBox(width: 20,),
-                          RaisedButton.icon(onPressed: ()
-                          {
-
-                            Firestore.instance.collection('Users').document(user_id).collection('Requests').document(id).delete();
-                          },
-                            icon: Icon(Icons.remove),
-                            label: Text('Reject',
-                              style: TextStyle(
-                                  color: Colors.white
-                              ),
-                            ),
-                            color:  Colors.red,
-                          )
                         ],)
                       ],
                     ),
@@ -110,6 +93,22 @@ class _currently_parkedState extends State<currently_parked> {
     FirebaseUser user= await FirebaseAuth.instance.currentUser();
     setState(() {
       user_id= user.uid;
+    });
+  }
+
+
+  void decrement_counter(String address, String did, String name, String phn, String idi) async {
+    print('d'+address);
+    QuerySnapshot documents= await Firestore.instance.collection('Parkings').where("Address", isEqualTo: address).getDocuments();
+    Firestore.instance.collection('Parkings').where("Address", isEqualTo: address).getDocuments().then((sn){
+      for(int i=0; i<sn.documents.length ; i++ )
+      {
+        String id=sn.documents[i].documentID;
+        print(id);
+        Firestore.instance.collection('Parkings').document(id).updateData({'Aquired':  FieldValue.increment(-1)});
+
+        Firestore.instance.collection("Users").document(user_id).collection('Currently parked').document(idi).delete();
+      }
     });
   }
 
