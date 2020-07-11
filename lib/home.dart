@@ -276,18 +276,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 image: AssetImage(
                                                     'assets/images/vv.PNG')),
                                           ),
-
-                                          // decoration: BoxDecoration(
-                                          //   borderRadius: BorderRadius.all(
-                                          //       Radius.circular(20)),
-
-                                          //   image: DecorationImage(
-                                          //       image: AssetImage(
-                                          //           'assets/images/vv.PNG')),
-                                          // ),
-                                          // backgroundImage: AssetImage(
-                                          //     'assets/images/vv.PNG'),
-                                          // radius: 40,
                                         ),
                                         Text(
                                           snap.data.documents[i]['Address']
@@ -429,20 +417,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ],
                                           ),
                                         ),
-                                        RaisedButton(
-                                          child: Text(
-                                            'Book Now',
-                                            style:
-                                            TextStyle(color: Colors.white),
-                                          ),
-                                          color: Color(0xffec8b5e),
-                                          onPressed: () => {
-
-                                            make_requests(current_users_email, snapshot.data.documents[i]['Host id'], snapshot.data.documents[i]['Address'],
-
-                                            )
-                                          },
-                                        )
+                                        get_button(snapshot.data.documents[i]['Type'],snapshot.data.documents[i]['Host id']),
                                       ],
                                     ),
                                   );
@@ -544,6 +519,29 @@ class _HomeScreenState extends State<HomeScreen> {
       print('cmpleted');
     });
 
+  }
+
+  get_button(document, doc2) {
+    if(document=='Public')
+      {
+        return SizedBox(height: 1,);
+      }
+    else
+      {
+        return RaisedButton(
+          child: Text(
+            'Book Now',
+            style:
+            TextStyle(color: Colors.white),
+          ),
+          color: Color(0xffec8b5e),
+          onPressed: () =>
+          {
+
+            make_requests(current_users_email, doc2, document,)
+          }      );
+
+      }
   }
 
 
