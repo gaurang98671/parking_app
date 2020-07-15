@@ -1,7 +1,7 @@
 # VEHICLE DETECTION, TRACKING AND COUNTING
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/22610163/36344830-095cc4ec-1431-11e8-8e57-976c40d87cf9.gif">
+  <img src="https://user-images.githubusercontent.com/47656352/87561441-52a5f700-c6da-11ea-90e5-2cc8de11acd0.png">
 </p>
 
 
