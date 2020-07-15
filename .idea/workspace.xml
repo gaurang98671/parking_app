@@ -11,8 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b33ff43e-099e-4222-bb61-33dc0587eda9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/currently_parked.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/currently_parked.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/requests_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/requests_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -236,7 +235,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594451803189</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="currently parked added">
+      <created>1594453258267</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1594453258267</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -284,6 +290,7 @@
     <MESSAGE value="latest" />
     <MESSAGE value="book option removed for public parkings" />
     <MESSAGE value="accep button issue solved" />
-    <option name="LAST_COMMIT_MESSAGE" value="accep button issue solved" />
+    <MESSAGE value="currently parked added" />
+    <option name="LAST_COMMIT_MESSAGE" value="currently parked added" />
   </component>
 </project>

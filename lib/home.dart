@@ -435,11 +435,67 @@ class _HomeScreenState extends State<HomeScreen> {
         }
         return Stack(
           children: <Widget>[
-            new GoogleMap(
+
+               new GoogleMap(
               mapType: MapType.hybrid,
               initialCameraPosition: CameraPosition(
                   target: LatLng(19.204761, 73.006379), zoom: 13),
               markers: _markers.toSet(),
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(40, 15, 0, 0),
+              height: 130,
+              width: MediaQuery.of(context).size.width*0.99,
+              child: Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                elevation: 2.0,
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.account_circle,
+                    size: 50,
+                    ),
+                    Column(
+                      children: <Widget>[
+                        SizedBox(height: 10,),
+                       Row(
+                         children: <Widget>[
+                           Text('Requested:',
+                           style: TextStyle(
+                             fontWeight: FontWeight.bold
+                           ),
+                           ),
+                           Text('atharva3110@gmail.com'),
+                         ],
+                       ),
+                        SizedBox(height: 5,),
+                        Row(
+                          children: <Widget>[
+                            Text('Status: ',
+                            style: TextStyle(
+                            fontWeight: FontWeight.bold
+                            ),
+                            ),
+                            Text('Pending',
+                            style: TextStyle(
+                              color: Colors.blue
+                            ),)
+                          ],
+                        ),
+                        RaisedButton(
+                          onPressed: (){},
+                          color: Colors.red,
+                          child: Text('Cancel request',
+                          style: TextStyle(
+                            color: Colors.white
+                          ),
+                          ),
+                        )
+
+                      ],
+                    )
+                  ],
+                )
+              ),
             ),
           ],
         );
